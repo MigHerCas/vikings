@@ -1,5 +1,7 @@
+import { Saxon, Soldier, Viking, War } from "../src/viking";
+
 describe('Soldier', () => {
-  let soldier;
+  let soldier: Soldier;
   const strength = 150;
   const health = 300;
 
@@ -11,14 +13,14 @@ describe('Soldier', () => {
     it('should receive 2 arguments (health & strength)', () => {
       expect(Soldier.length).toEqual(2);
     });
-    //
-    // it('should receive the health property as its 1st argument', () => {
-    //   expect(soldier.health).toEqual(health);
-    // });
-    //
-    // it('should receive the strength property as its 2nd argument', () => {
-    //   expect(soldier.strength).toEqual(strength);
-    // });
+
+    it('should receive the health property as its 1st argument', () => {
+      expect(soldier.getHealth()).toEqual(health);
+    });
+
+    it('should receive the strength property as its 2nd argument', () => {
+      expect(soldier.getStrength()).toEqual(strength);
+    });
   });
 
   describe('attack() method', () => {
@@ -46,7 +48,7 @@ describe('Soldier', () => {
     //
     // it('should remove the received damage from the health property', () => {
     //   soldier.receiveDamage(50);
-    //   expect(soldier.health).toEqual(health - 50);
+    //   expect(soldier.getHealth()).toEqual(health - 50);
     // });
     //
     // it("shouldn't return anything", () => {
@@ -56,7 +58,7 @@ describe('Soldier', () => {
 });
 
 describe('Viking', () => {
-  let viking;
+  let viking: Viking;
   const name = 'Harald';
   const strength = 150;
   const health = 300;
@@ -65,9 +67,9 @@ describe('Viking', () => {
     viking = new Viking(name, health, strength);
   });
 
-  // it('should inherit from Soldier', () => {
-  //   expect(viking instanceof Soldier).toEqual(true);
-  // });
+  it('should inherit from Soldier', () => {
+    expect(viking instanceof Soldier).toEqual(true);
+  });
 
   describe('class', () => {
     // it('should receive 3 arguments (name, health & strength)', () => {
@@ -79,11 +81,11 @@ describe('Viking', () => {
     // });
     //
     // it('should receive the health property as its 2nd argument', () => {
-    //   expect(viking.health).toEqual(health);
+    //   expect(viking.getHealth()).toEqual(health);
     // });
     //
     // it('should receive the strength property as its 3rd argument', () => {
-    //   expect(viking.strength).toEqual(strength);
+    //   expect(viking.getStrength()).toEqual(strength);
     // });
   });
 
@@ -112,7 +114,7 @@ describe('Viking', () => {
     //
     // it('should remove the received damage from the health property', () => {
     //   viking.receiveDamage(50);
-    //   expect(viking.health).toEqual(health - 50);
+    //   expect(viking.getHealth()).toEqual(health - 50);
     // });
     //
     // it('should return "NAME has received DAMAGE points of damage", if the Viking is still alive', () => {
@@ -141,7 +143,7 @@ describe('Viking', () => {
 });
 
 describe('Saxon', () => {
-  let saxon;
+  let saxon: Saxon;
   const health = 60;
   const strength = 25;
 
@@ -149,17 +151,17 @@ describe('Saxon', () => {
     saxon = new Saxon(health, strength);
   });
 
-  // it('should inherit from Soldier', () => {
-  //   expect(saxon instanceof Soldier).toEqual(true);
-  // });
+  it('should inherit from Soldier', () => {
+    expect(saxon instanceof Soldier).toEqual(true);
+  });
 
   describe('class', () => {
     // it('should receive the health property as its 1st argument', () => {
-    //   expect(saxon.health).toEqual(health);
+    //   expect(saxon.getHealth()).toEqual(health);
     // });
     //
     // it('should receive the strength property as its 2nd argument', () => {
-    //   expect(saxon.strength).toEqual(strength);
+    //   expect(saxon.getStrength()).toEqual(strength);
     // });
   });
 
@@ -188,7 +190,7 @@ describe('Saxon', () => {
     //
     // it('should remove the received damage from the health property', () => {
     //   saxon.receiveDamage(50);
-    //   expect(saxon.health).toEqual(health - 50);
+    //   expect(saxon.getHealth()).toEqual(health - 50);
     // });
     //
     // it('should return "A Saxon has received DAMAGE points of damage", if the Saxon is still alive', () => {
@@ -203,7 +205,7 @@ describe('Saxon', () => {
 });
 
 describe('War', () => {
-  let viking, saxon, war;
+  let viking: Viking, saxon: Saxon, war: War;
 
   function generateViking() {
     const name = 'Harald';
@@ -292,9 +294,9 @@ describe('War', () => {
       // });
       //
       // it('should make Saxon receiveDamage() equal to the strength of a Viking', () => {
-      //   let oldHealth = saxon.health;
+      //   let oldHealth = saxon.getHealth();
       //   war.vikingAttack();
-      //   expect(saxon.health).toEqual(oldHealth - viking.strength);
+      //   expect(saxon.getHealth()).toEqual(oldHealth - viking.getStrength());
       // });
       //
       // it('should remove dead saxons from the army', () => {
@@ -317,9 +319,9 @@ describe('War', () => {
       // });
       //
       // it('should make a Viking receiveDamage() equal to the strength of a Saxon', () => {
-      //   let oldHealth = viking.health;
+      //   let oldHealth = viking.getHealth();
       //   war.saxonAttack();
-      //   expect(viking.health).toEqual(oldHealth - saxon.strength);
+      //   expect(viking.getHealth()).toEqual(oldHealth - saxon.getStrength());
       // });
       //
       // it('should remove dead vikings from the army', () => {
@@ -331,7 +333,7 @@ describe('War', () => {
       //
       // it('should return result of calling receiveDamage() of a Viking with the strength of a Saxon', () => {
       //   expect(war.saxonAttack()).toEqual(
-      //     `${viking.name} has received ${saxon.strength} points of damage`
+      //     `${viking.name} has received ${saxon.getStrength()} points of damage`
       //   );
       // });
     });
